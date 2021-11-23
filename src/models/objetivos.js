@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const ObjetivosSchema = new Schema({
+const ObjetivoSchema = new Schema({
     descripcion: { type: String, required: true},
     tipo: { type: String,
         enum : ['general','especifico'],
@@ -12,4 +12,4 @@ const ObjetivosSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Objetivos', ObjetivosSchema);
+module.exports = mongoose.model('Objetivo', ObjetivoSchema);
