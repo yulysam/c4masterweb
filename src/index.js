@@ -20,6 +20,7 @@ app.use('/api', require('./routes/task.routes'));
 // Satatic files
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // Starting the server
 
 
