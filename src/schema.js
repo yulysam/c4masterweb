@@ -5,40 +5,32 @@ import { resolvers } from "./resolvers";
 const typeDefs = `
 
     type Query {
-        hello: String
-        greet(name: String!): String
-        tasks: [Task]
-    }
-
-    type Task {
-        _id: ID
-        title: String!
-        description: String!
-        number: Int
+        Users: [User]
     }
 
     type User {
         _id: ID
-        firstname: String!
-        lastname: String!
-        age: Int
+        correo: String!
+        identificacion: String
+        nombre: String
+        apellido: String
+        rol: String
+        estado: String
     }
 
     type Mutation {
-        createTask(input: TaskInput): Task
         createUser(input: UserInput): User
-    }
-
-    input TaskInput {
-        title: String!
-        description: String!
-        number: Int
+        deleteUser(_id: ID): User
+        updateUser(_id: ID, input: UserInput): User
     }
 
     input UserInput {
-        firstname: String!
-        lastname: String!
-        age: Int!
+        correo: String!
+        identificacion: String
+        nombre: String
+        apellido: String
+        rol: String
+        estado: String
     }
 `;
 
