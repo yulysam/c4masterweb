@@ -1,19 +1,12 @@
-import express from "express";
-import {graphqlHTTP} from "express-graphql";
-import schema from "./schema";
-import { connect } from "./databease";
+const express = require('express')
+const {ApolloServer} = require('apollo-server-express')
 
-const app = express();
+const initServer = () => {
+    const app = express()
+    const apollo = new ApolloServer({typeDefs,resolvers})
+    await apollo.start()
+    apollo.applyMiddleware({app})
+    app.listen ('9091', () => console.log('apollo funcionando en el port 9091') )
+    
 
-app.get('/', (req, res) => {
-    res.json({
-        message: "Hola Master Web"
-    })
-});
-
-app.use('/graphql', graphqlHTTP({
-    graphiql: true,
-    schema: schema
-  }));
-
-app.listen(3000, () => console.log('Servidor en localhost:3000'));
+}
