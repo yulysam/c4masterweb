@@ -1,28 +1,19 @@
-const express = require('express');
-const morgan = require('morgan');
-const path = require('path');
-
-const { mongoose } = require('./database');
+import express from "express";
+import {graphqlHTTP} from "express-graphql";
 
 const app = express();
 
-
-// Settings
-app.set('port', process.env.PORT || 3000);
-
-// Middlewares
-app.use(morgan('dev'));
-app.use(express.json());
-
-// Routes
-app.use('/api', require('./routes/task.routes'));
-
-// Satatic files
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Starting the server
-
-
-app.listen(app.get('port'), () => {
-    console.log(`Server on port ${app.get('port')}`);
+app.get('/', (req, res) => {
+    res.json({
+        message: "Hola Master Web"
+    })
 });
+
+const schema = {};
+
+app.use('/graphql', graphqlHTTP({
+    graphiql: true,
+    schema: schema
+  }));
+
+app.listen(3000, () => console.log('3000'));
