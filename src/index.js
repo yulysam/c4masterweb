@@ -1,6 +1,7 @@
 import express from "express";
 import {graphqlHTTP} from "express-graphql";
 import schema from "./schema";
+import { connect } from "./databease";
 
 const app = express();
 
@@ -15,4 +16,4 @@ app.use('/graphql', graphqlHTTP({
     schema: schema
   }));
 
-app.listen(3000, () => console.log('3000'));
+app.listen(3000, () => console.log('Servidor en localhost:3000'));
