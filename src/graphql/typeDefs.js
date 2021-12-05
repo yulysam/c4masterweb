@@ -11,7 +11,7 @@ const typeDefs = gql`
         nombre:String
         facultad:String
         lider:String
-        presupuesto:[String]
+        presupuesto:Int
         objetivosGenerales:[String]
         objetivosEspecificos:[String]
         avances:[String]
@@ -31,6 +31,8 @@ const typeDefs = gql`
         rol: String
         estado: String
     }
+    
+    
 
     type Mutation {
         createUser(input: UserInput): User
@@ -40,8 +42,26 @@ const typeDefs = gql`
         updStateProject(nombre:String):String
         approveProject(nombre:String):String
         finishProject(nombre:String):String
+        liderUpdateProject(nombre:String, updateProject:LiderProInput):String
+        regAvance(nombre:String, avance:AvancesInput):String
     }
 
+    input AvancesInput{
+        titulo:String
+        descripcion:String
+    }
+
+    input LiderProInput{
+        nombre:String
+        objetivosGenerales:[ObjetivosInput]
+        objetivosEspecificos:[ObjetivosInput]
+        presupuesto:Int
+    }
+
+    input ObjetivosInput{
+        titulo:String
+        description:String
+    }
     input ProjectInput{
         facultad:String
         lider:String

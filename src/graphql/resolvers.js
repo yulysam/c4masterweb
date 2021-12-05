@@ -51,10 +51,20 @@ const resolvers = {
         finishProject: async (parent, args, context, info) =>{
             return proyecto.updateOne({nombre:args.nombre},{estado:"Inactivo", fase:"en desarrollo"})
                 .then(u => "el proyecto ha finalizado")
-        }
-        
+        },
 
-    }
+        liderUpdateProject: async (parent, args, context, info) => {
+            const {nombre, objetivosGenerales, objetivosEspecificos, presupuesto} = args.updateProject
+            return proyecto.updateOne({nombre:args.nombre},{nombre:nombre, $push:{objetivosGenerales:objetivosGenerales}, $push:{objetivosEspecificos:objetivosEspecificos}, presupuesto:presupuesto })
+            .then(u => "Cambio registrado")
+        },  
+        
+        regAvance: async (parent, args, context, info) => {
+            return proyecto.updateOne({nombre:args.nombre},{$push:{avances:args.avance}})
+                .then(u => "avance registrado")
+        }
+    }  
+
 };
 
 module.exports = resolvers
