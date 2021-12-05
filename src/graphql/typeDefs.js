@@ -7,15 +7,26 @@ const typeDefs = gql`
         Proyectos:[proyecto]
     }
 
+    type Avance{
+        titulo:String
+        descripcion:String
+    }
+
+    type Objetivo{
+        titulo:String
+        descripcion:String
+    }
+
+
     type proyecto {
         nombre:String
         facultad:String
         lider:String
         presupuesto:Int
-        objetivosGenerales:[String]
-        objetivosEspecificos:[String]
-        avances:[String]
-        integrantes:[String]
+        objetivosGenerales:[Objetivo]
+        objetivosEspecificos:[Objetivo]
+        avances:[Avance]
+        integrantes:[User]
         estado:String
         fase:String
         aprobado:Boolean
@@ -43,7 +54,7 @@ const typeDefs = gql`
         approveProject(nombre:String):String
         finishProject(nombre:String):String
         liderUpdateProject(nombre:String, updateProject:LiderProInput):String
-        regAvance(nombre:String, avance:AvancesInput):String
+        regAvance(nombre:String, avance:AvancesInput):proyecto
     }
 
     input AvancesInput{
