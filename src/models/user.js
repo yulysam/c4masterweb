@@ -1,4 +1,4 @@
-import { Schema,model } from "mongoose";
+const{Schema, model}=require('mongoose')
 
 const userSchema  = new Schema({
     correo: { type: String, required: true},
@@ -13,4 +13,4 @@ const userSchema  = new Schema({
         default: 'estudiante'}
 });
 
-export default model('User', userSchema)
+module.exports = model('Usuario', userSchema)
