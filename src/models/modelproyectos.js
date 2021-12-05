@@ -29,13 +29,24 @@ const projectModel = new Schema ({
         type:String,
         default: "esperando"
     },
-    objetivosGenerales:[String],
-    objetivosEspecificos:[String],
+    objetivosGenerales:[{
+        titulo:String,
+        description:String
+    }],
+    objetivosEspecificos:[{
+        titulo:String,
+        description:String
+    }],
     presupuesto:{
         type:Number,
         default: 0
     },
-    avances:[String]
+    avances:[ {
+        titulo:String,
+        descripcion:String,
+        fecha: {type:Date, default: new Date()}        
+    }
+    ]
 
 })
 module.exports = model('proyecto', projectModel)
