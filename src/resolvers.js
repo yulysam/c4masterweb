@@ -1,5 +1,3 @@
-import { tasks } from "./sample";
-
 import User from "./models/user";
 
 export const resolvers = {
