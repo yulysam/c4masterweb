@@ -40,11 +40,20 @@ const resolvers = {
             } else {
                 return proyecto.updateOne({nombre:args.nombre},{estado:"Inactivo"})
                     .then(u=>"Proyecto Inactivo")
-            }
-               
-                
-            
+            }    
+        },
+
+        approveProject: async (parent, args, context, info) => {
+            return proyecto.updateOne({nombre:args.nombre},{aprobado:true, estado:"Activo", fase:"en desarrollo"})
+                .then(u=>"proyecto en marcha")
+        },
+
+        finishProject: async (parent, args, context, info) =>{
+            return proyecto.updateOne({nombre:args.nombre},{estado:"Inactivo", fase:"en desarrollo"})
+                .then(u => "el proyecto ha finalizado")
         }
+        
+
     }
 };
 

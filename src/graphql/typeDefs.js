@@ -38,7 +38,8 @@ const typeDefs = gql`
         updateUser(_id: ID, input: UserInput): User
         createProject(project:ProjectInput):String
         updStateProject(nombre:String):String
-        
+        approveProject(nombre:String):String
+        finishProject(nombre:String):String
     }
 
     input ProjectInput{
