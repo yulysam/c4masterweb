@@ -44,7 +44,7 @@ const typeDefs = gql`
     }
     
     
-
+    
     type Mutation {
         createUser(input: UserInput): User
         deleteUser(_id: ID): User
@@ -55,12 +55,15 @@ const typeDefs = gql`
         finishProject(nombre:String):String
         liderUpdateProject(nombre:String, updateProject:LiderProInput):String
         regAvance(nombre:String, avance:AvancesInput):proyecto
+        regUsuario(_id:String, Proyecto:String):String
     }
 
     input AvancesInput{
         titulo:String
         descripcion:String
     }
+    
+
 
     input LiderProInput{
         nombre:String

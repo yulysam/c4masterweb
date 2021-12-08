@@ -11,12 +11,13 @@ const projectModel = new Schema({
         required: true
     },
     lider: {
-        type: String,
+        ref:"Usuario",
+        type:Schema.Types.ObjectId,
         required: true
     },
-    integrantes: {
-        type: [String]
-    },
+    integrantes: [{
+        type:Object   
+    }],
     aprobado: {
         type: Boolean,
         default: false
@@ -48,5 +49,7 @@ const projectModel = new Schema({
     }
     ]
 
+},{
+    timestamps:true
 })
 module.exports = model('proyecto', projectModel)
