@@ -11,12 +11,15 @@ const projectModel = new Schema({
         required: true
     },
     lider: {
-        ref:"Usuario",
-        type:Schema.Types.ObjectId,
-        required: true
+        type:String,
     },
+    solicitudes:[{
+        type:Schema.Types.ObjectId,
+        ref:'Usuario'
+    }],
     integrantes: [{
-        type:Object   
+        type:Schema.Types.ObjectId,  
+        ref:'Usuario'
     }],
     aprobado: {
         type: Boolean,

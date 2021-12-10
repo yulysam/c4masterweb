@@ -55,7 +55,8 @@ const typeDefs = gql`
         finishProject(nombre:String):String
         liderUpdateProject(nombre:String, updateProject:LiderProInput):String
         regAvance(nombre:String, avance:AvancesInput):proyecto
-        regUsuario(_id:String, Proyecto:String):String
+        regUsuario(_id:String, nombre:String):String
+        solUsuario(_id:String, nombre:String):String
     }
 
     input AvancesInput{

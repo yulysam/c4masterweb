@@ -1,21 +1,36 @@
 const proyecto = require('../models/modelproyectos')
 const User = require('../models/user')
 
-const registrarUsuario = async (_id, nombre) => {
+const aprobarUsuario = async (_id, nombre) => {
     const user = await User.findOne({_id})
-    if(user!=null){
+    if(user){
         const Project = await proyecto.findOne({nombre})
-        const usuarioExiste = await proyecto.findOne({integrantes:_id})
-        if(Project!=null && usuarioExiste == null){
-            await proyecto.updateOne({nombre}, {$push:{integrantes:user}})
-            return await proyecto.updateOne({nombre}, {$push:{user:{autorizado:false}}})
-                .then(u => "usuario registrado")
+        const usuarioExiste = Project.solicitudes.find(i => i == _id)
+        if(usuarioExiste){
+            await proyecto.updateOne({nombre},{$pull:{solicitudes:_id}})
+            return await proyecto.updateOne({nombre}, {$push:{integrantes:_id}})
+                .then(u => "usuario Aceptado")
+                .catch(e => console.log(e))
+        }else{
+            return "el usuario no tiene una solicitud"
+        }
+    }
+}
+
+const solcitarUnionalProyecto = async (id, nombre) => {
+    const user = await User.findOne({id})
+    if(user!=null){
+        const Project = await proyecto.findOne({nombre:nombre})
+        if(Project.solicitudes.find(i => i == id)){
+            return "ud ya ha solicitado unirse"
+                
+        }else {
+            return await proyecto.updateOne({nombre}, {$push:{solicitudes:id}})
+                .then(u => "Solicitud recibida")
                 .catch(e => console.log(e))
         }
     }
-
 }
-
 const activarProyecto = async (nombre) => {
     const StatePro = await proyecto.findOne({ nombre })
     if (StatePro && StatePro.estado === "Inactivo") {
@@ -37,11 +52,13 @@ const CrearProyecto = async (project) =>  {
     const validar = await proyecto.findOne({nombre})
     if (validar != null) {
         return "este proyecto ya existe"
+    }else{
+        const regProj = new proyecto(project)
+        return regProj.save()
+            .then(u => 'el projecto ha sido creado')
+            .catch(e => console.log(e))
+        
     }
-    const regProj = new proyecto(project)
-    return regProj.save()
-        .then(u => 'el projecto ha sido creado')
-        .catch(e => console.log(e))
 
 }
 
@@ -81,5 +98,6 @@ module.exports = {
     FinalizarProyecto,
     ActualizarProyecto,
     RegistroAvances,
-    registrarUsuario
+    aprobarUsuario,
+    solcitarUnionalProyecto
 }

@@ -4,7 +4,8 @@ const {CrearProyecto,
     FinalizarProyecto, 
     ActualizarProyecto, 
     RegistroAvances,
-    registrarUsuario
+    aprobarUsuario,
+    solcitarUnionalProyecto
 }=require('../services/proyecto.service')
 const proyecto = require('../models/modelproyectos')
 const User = require('../models/user')
@@ -43,7 +44,9 @@ const resolvers = {
 
         regAvance: async (parent, args, context, info) => RegistroAvances(args.nombre, args.avance),
         
-        regUsuario: async (parent, args, context, info) => registrarUsuario(args._id, args.Proyecto)
+        regUsuario: async (parent, args, context, info) => aprobarUsuario(args._id, args.nombre),
+
+        solUsuario: async(parent, args, context, info) => solcitarUnionalProyecto(args._id, args.nombre)
     
     }
 
