@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
-const URI = 'mongodb+srv://andres:12345678Q@cluster0.jmdaw.mongodb.net/MasterDB?retryWrites=true&w=majority';
+const URI = 'mongodb+srv://UsuarioTest:test21@cluster0.k9flr.mongodb.net/Proyectociclo4?retryWrites=true&w=majority';
 
 mongoose.connect(URI)
     .then(db => console.log('DB is connected'))
