@@ -18,7 +18,7 @@ const resolvers = {
             return await User.find();
         },
         Proyectos: async () => {
-            return await proyecto.find().populate('integrantes', 'objetivoGenerales', 'objetivosEspecificos')
+            return await proyecto.find().populate('integrantes')
         }
     },
     Mutation: {
@@ -47,7 +47,7 @@ const resolvers = {
             if (Administrador(context.rol)){
                 AprobarProyecto(args.nombre)
             }
-        }    
+        },    
         finishProject: async (parent, args, context, info) =>{
 
             if (Administrador(context.rol)){
