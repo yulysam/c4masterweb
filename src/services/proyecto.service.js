@@ -21,6 +21,8 @@ const solcitarUnionalProyecto = async (id, nombre) => {
     const user = await User.findOne({id})
     if(user!=null){
         const Project = await proyecto.findOne({nombre:nombre})
+        if(Project.integrantes.find(i => i == id)) return "ud ya es integrante en este proyecto"
+             
         if(Project.solicitudes.find(i => i == id)){
             return "ud ya ha solicitado unirse"
                 
