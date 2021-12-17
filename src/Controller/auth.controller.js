@@ -1,13 +1,14 @@
 const jwt = require('jsonwebtoken')
 const Usuario = require('../models/user')
+const key = 'HolaMundo'
 
 const singIn = async (request,response, next) => {
     try{
 
-        const user = await Usuario.findOne({email:request.body?.correo})
+        const user = await Usuario.findOne({correo:request.body?.correo})
         if (!user)  return response.status(401).json({response:"verifique usuario y contraseña"})
 
-        if (request.body?.clave === user.clave) return response.status(401).json({response:"verifique usuario y contraseña"}) 
+        if (request.body?.clave != user.clave) return response.status(401).json({response:"verifique usuario y contraseña"}) 
         
         const token = jwt.sign({
             rol : user.rol

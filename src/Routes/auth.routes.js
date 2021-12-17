@@ -8,3 +8,5 @@ route.use((request,response,next)=>{
 })
 
 route.post('/login', singIn)
+
+module.exports = route

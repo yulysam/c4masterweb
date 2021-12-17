@@ -2,7 +2,7 @@ require('./src/db/databease')
 
 const express = require('express')
 const {ApolloServer} = require('apollo-server-express')
-const jwt = ('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const key = 'HolaMundo'
 
 const typeDefs = require('./src/graphql/typeDefs')
@@ -32,7 +32,7 @@ const initServer = async () => {
     await apollo.start()
     apollo.applyMiddleware({app})
     app.use(express.json())
-    app.use('/api', )
+    app.use('/api', authRoute)
     app.listen ('9091', () => console.log('apollo funcionando en el port 9091') )
 
 
