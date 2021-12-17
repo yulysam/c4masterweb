@@ -7,6 +7,8 @@ const {CrearProyecto,
     aprobarUsuario,
     solcitarUnionalProyecto
 }=require('../services/proyecto.service')
+const {Administrador, Lider, Estudiante} = require('../middlewares/authjwt')
+
 const proyecto = require('../models/modelproyectos')
 const User = require('../models/user')
 
@@ -16,7 +18,7 @@ const resolvers = {
             return await User.find();
         },
         Proyectos: async () => {
-            return await proyecto.find().populate('integrantes')
+            return await proyecto.find().populate('integrantes', 'objetivoGenerales', 'objetivosEspecificos')
         }
     },
     Mutation: {
@@ -32,22 +34,51 @@ const resolvers = {
             return await User.findByIdAndUpdate(_id, input, { new: true });
         },
 
-        createProject: async (parent, args, context, info) => CrearProyecto(args.project),
+        createProject: async (parent, args, context, info) =>{
+            if (Lider(context.rol)){
+                CrearProyecto(args.project)
+            }
+        },
         //Mutation para cambiar el estado de los proyectos
         updStateProject: async (parent, args, context, info) => activarProyecto(args.nombre),
 
-        approveProject: async (parent, args, context, info) => AprobarProyecto(args.nombre),
+        approveProject: async (parent, args, context, info) =>{
 
-        finishProject: async (parent, args, context, info) => FinalizarProyecto(args.nombre) ,
+            if (Administrador(context.rol)){
+                AprobarProyecto(args.nombre)
+            }
+        }    
+        finishProject: async (parent, args, context, info) =>{
 
-        liderUpdateProject: async (parent, args, context, info) => ActualizarProyecto(args.nombre, args.updateProject),
-
-        regAvance: async (parent, args, context, info) => RegistroAvances(args.nombre, args.avance),
+            if (Administrador(context.rol)){
+                FinalizarProyecto(args.nombre)
+            }
+        },
         
-        regUsuario: async (parent, args, context, info) => aprobarUsuario(args._id, args.nombre),
+        liderUpdateProject: async (parent, args, context, info) => {
+            if (Administrador(context.rol)){
+                ActualizarProyecto(args.nombre, args.updateProject)
+            }
+        },
 
-        solUsuario: async(parent, args, context, info) => solcitarUnionalProyecto(args._id, args.nombre)
-    
+        regAvance: async (parent, args, context, info) => {
+            if (Estudiante(context.rol) || Lider(context.rol)){
+                RegistroAvances(args.nombre, args.avance) 
+            }
+        },
+        
+        regUsuario: async (parent, args, context, info) => {
+            if(Lider(context.rol)){
+                aprobarUsuario(args._id, args.nombre)
+            }
+        },
+
+        solUsuario: async(parent, args, context, info) => {
+            if(Estudiante(context.rol)){
+                solcitarUnionalProyecto(args._id, args.nombre)
+            }
+        }
+        
     }
 
 };

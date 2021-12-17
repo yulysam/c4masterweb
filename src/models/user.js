@@ -6,11 +6,13 @@ const userSchema  = new Schema({
     nombre: { type: String},
     apellido: { type: String},
     rol: { type: String,
-        enum : ['pendiente','autorizado','no_autorizado'],
-        default: 'pendiente'},
-    estado: { type: String,
         enum : ['estudiante','lider','administrador'],
-        default: 'estudiante'}
+        default: 'estudiante'
+        },
+    estado: { type: String,
+        enum : ['pendiente','autorizado','no_autorizado'],
+        default: 'pendiente'
+        }
 });
 
 module.exports = model('Usuario', userSchema)

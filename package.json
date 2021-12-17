@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
     "build": "babel src -d disk --source-maps",
     "dev": "nodemon index.js --exec babel-node",
     "serve": "node disk/index.js",
@@ -27,6 +27,7 @@
     "express-graphql": "^0.12.0",
     "graphql": "^16.0.1",
     "graphql-tools": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.13",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
