@@ -2,6 +2,7 @@ import express from "express";
 import {graphqlHTTP} from "express-graphql";
 import schema from "./schema";
 import { connect } from "./databease";
+import cors from 'cors'
 
 const app = express();
 
@@ -11,9 +12,11 @@ app.get('/', (req, res) => {
     })
 });
 
+app.use(cors())
+
 app.use('/graphql', graphqlHTTP({
     graphiql: true,
     schema: schema
   }));
 
-app.listen(3000, () => console.log('Servidor en localhost:3000'));
+app.listen(3100, () => console.log('Servidor en localhost:3100'));
