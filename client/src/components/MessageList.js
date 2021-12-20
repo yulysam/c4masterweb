@@ -12,6 +12,9 @@ const GET_MESSAGES = gql`
         presupuesto
         fecha_inicio
         fecha_fin
+        lider
+        estado
+        face
   }
     }
 `;
@@ -26,7 +29,7 @@ const MessageList = () => {
         <div className='row'>
             <div className='col-md-6 offset-md-3'>
                 {
-                    data.Proyectos.map( ({_id, nombre, objetivos, presupuesto, fecha_inicio, fecha_fin}) => (
+                    data.Proyectos.map( ({_id, nombre, objetivos, presupuesto, fecha_inicio, fecha_fin, lider, estado, face}) => (
                         <div key={_id} className='card m-2'>
                             <div className='card-body'>
                                 <h4>{nombre}</h4>
@@ -34,6 +37,9 @@ const MessageList = () => {
                                 <p>{presupuesto}</p>
                                 <p>{fecha_inicio}</p>
                                 <p>{fecha_fin}</p>
+                                <p>{lider}</p>
+                                <p>{estado}</p>
+                                <p>{face}</p>
                             </div>
                         </div>
                     ))

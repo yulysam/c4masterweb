@@ -8,11 +8,11 @@ const userSchema  = new Schema({
     apellido: { type: String},
     rol_aspiro: { type: String},
     rol: { type: String,
-        enum : ['pendiente','autorizado','no_autorizado'],
-        default: 'pendiente'},
-    estado: { type: String,
         enum : ['estudiante','lider','administrador'],
-        default: 'estudiante'}
+        default: 'estudiante'},
+    estado: { type: String,
+        enum : ['pendiente','autorizado','no_autorizado'],
+        default: 'pendiente'}
 });
 
 export default model('User', userSchema)
