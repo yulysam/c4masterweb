@@ -34,8 +34,8 @@ const typeDefs = gql`
     }
 
     type User {
-        _id: ID
-        correo: String!
+        _id: String
+        correo: String
         identificacion: String
         nombre: String
         apellido: String
@@ -46,9 +46,9 @@ const typeDefs = gql`
     
     
     type Mutation {
-        createUser(input: UserInput): User
-        deleteUser(_id: ID): User
-        updateUser(_id: ID, input: UserInput): User
+        createUser(input: UserInput): String
+        deleteUser(_id: String): String
+        updateUser(_id: String, input: UserInput): String
         createProject(project:ProjectInput):String
         updStateProject(nombre:String):String
         approveProject(nombre:String):String
@@ -57,6 +57,7 @@ const typeDefs = gql`
         regAvance(nombre:String, avance:AvancesInput):proyecto
         regUsuario(_id:String, nombre:String):String
         solUsuario(_id:String, nombre:String):String
+        approveUser(_id:String):String
     }
 
     input AvancesInput{
@@ -83,8 +84,9 @@ const typeDefs = gql`
         nombre:String
     }
 
+    
     input UserInput {
-        correo: String!
+        correo: String
         identificacion: String
         nombre: String
         apellido: String

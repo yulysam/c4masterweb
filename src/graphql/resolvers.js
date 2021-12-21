@@ -6,7 +6,10 @@ const {CrearProyecto,
     RegistroAvances,
     aprobarUsuario,
     solcitarUnionalProyecto
-}=require('../services/proyecto.service')
+}= require('../services/proyecto.service')
+
+const {autorizarUsuario} = require('../services/usuario.service')
+
 const {Administrador, Lider, Estudiante} = require('../middlewares/authjwt')
 
 const proyecto = require('../models/modelproyectos')
@@ -25,28 +28,31 @@ const resolvers = {
         async createUser(_, { input }) {
             const newUser = new User(input)
             await newUser.save();
-            return newUser;
+            return "el usuario ha sido creado";
         },
         async deleteUser(_, { _id }) {
-            return await User.findByIdAndDelete(_id);
+            await User.findByIdAndDelete(_id);
+            return "el ususario ha sido eliminado" 
         },
         async updateUser(_, { _id, input }) {
-            return await User.findByIdAndUpdate(_id, input, { new: true });
+            await User.updateOne(_id, input, { new: true });
+            return "usuario actualizado"
         },
 
+        approveUser: async(parent, args, context, info) => autorizarUsuario(args._id),
+
         createProject: async (parent, args, context, info) =>{
-            if (Lider(context.rol)){
+            //if (Lider(context.rol)){}
                 CrearProyecto(args.project)
-            }
         },
         //Mutation para cambiar el estado de los proyectos
         updStateProject: async (parent, args, context, info) => activarProyecto(args.nombre),
 
         approveProject: async (parent, args, context, info) =>{
 
-            if (Administrador(context.rol)){
-                AprobarProyecto(args.nombre)
-            }
+            AprobarProyecto(args.nombre)
+            // if (Administrador(context.rol)){
+            // }
         },    
         finishProject: async (parent, args, context, info) =>{
 
@@ -74,9 +80,9 @@ const resolvers = {
         },
 
         solUsuario: async(parent, args, context, info) => {
-            if(Estudiante(context.rol)){
-                solcitarUnionalProyecto(args._id, args.nombre)
-            }
+            solcitarUnionalProyecto(args._id, args.nombre)
+            // if(Estudiante(context.rol)){
+            // }
         }
         
     }

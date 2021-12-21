@@ -18,7 +18,7 @@ const initServer = async () => {
             try{
                 const perfil = jwt.verify(token, key)
                 if(perfil){
-                    rol = perfil.rol
+                    const rol = perfil.rol
                     return {rol}
                 }
 
