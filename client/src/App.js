@@ -9,8 +9,7 @@ import UserList from './components/UserList'
 import EditProyec from './components/EditProyec'
 import EditProyeclider from './components/EditProyeclider'
 import InscripcionsList from './components/InscripcionsList'
-
-
+import EditInscripcions from './components/EditInscripcions'
 
 
 
@@ -31,6 +30,8 @@ function App() {
           <Route exact path="/edit-proyec" element={<EditProyec/>} />
           <Route exact path="/edit-proyec-lider" element={<EditProyeclider/>} />
           <Route exact path="/list-inscripcions" element={<InscripcionsList/>} />
+          <Route exact path="/edit-inscripcions" element={<EditInscripcions/>} />
+
 
         </Routes>
       </div>
