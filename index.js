@@ -8,6 +8,7 @@ const key = 'HolaMundo'
 const typeDefs = require('./src/graphql/typeDefs')
 const resolvers = require('./src/graphql/resolvers')
 const authRoute = require('./src/Routes/auth.routes')
+
 const initServer = async () => {
     const app = express()
     const apollo = new ApolloServer({
@@ -18,7 +19,7 @@ const initServer = async () => {
             try{
                 const perfil = jwt.verify(token, key)
                 if(perfil){
-                    const rol = perfil.rol
+                    rol = perfil.rol
                     return {rol}
                 }
 
@@ -33,7 +34,12 @@ const initServer = async () => {
     apollo.applyMiddleware({app})
     app.use(express.json())
     app.use('/api', authRoute)
-    app.listen ('9091', () => console.log('apollo funcionando en el port 9091') )
+    app.listen ( {port: process.env.PORT || 9090}).then(({ url }) => {
+        console.log(`
+          🚀  Server is ready at ${url}
+          📭  Query at https://studio.apollographql.com/dev
+        `);
+      });
 
 
 }

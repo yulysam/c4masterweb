@@ -8,7 +8,7 @@ const {CrearProyecto,
     solcitarUnionalProyecto
 }= require('../services/proyecto.service')
 
-const {autorizarUsuario} = require('../services/usuario.service')
+const {registrar, ingresar, autorizarUsuario} = require('../services/usuario.service')
 
 const {Administrador, Lider, Estudiante} = require('../middlewares/authjwt')
 
@@ -25,11 +25,8 @@ const resolvers = {
         }
     },
     Mutation: {
-        async createUser(_, { input }) {
-            const newUser = new User(input)
-            await newUser.save();
-            return "el usuario ha sido creado";
-        },
+         createUser: async(parent, args, context, info) => registrar(args.input),
+
         async deleteUser(_, { _id }) {
             await User.findByIdAndDelete(_id);
             return "el ususario ha sido eliminado" 
@@ -38,6 +35,8 @@ const resolvers = {
             await User.updateOne(_id, input, { new: true });
             return "usuario actualizado"
         },
+
+        authorization: async(parent, args, context, info) => ingresar(args.correo, args.clave),
 
         approveUser: async(parent, args, context, info) => autorizarUsuario(args._id),
 

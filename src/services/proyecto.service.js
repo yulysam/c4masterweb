@@ -52,7 +52,7 @@ const activarProyecto = async (nombre) => {
 const CrearProyecto = async (project) =>  {
     const{nombre} = project
     const validar = await proyecto.findOne({nombre})
-    if (validar != null) {
+    if (validar) {
         return "este proyecto ya existe"
     }else{
         const regProj = new proyecto(project)

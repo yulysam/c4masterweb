@@ -11,8 +11,8 @@ const userSchema  = new Schema({
         default: 'estudiante'
         },
     estado: { type: String,
-        enum : ['pendiente','Autorizado','no_autorizado'],
-        default: 'pendiente'
+        enum : ['Pendiente','Autorizado','No_autorizado'],
+        default: 'Pendiente'
         }
 });
 

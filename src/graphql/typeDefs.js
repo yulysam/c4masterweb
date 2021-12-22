@@ -42,22 +42,28 @@ const typeDefs = gql`
         rol: String
         estado: String
     }
+
+    type Auth{
+        jwt: String
+        status: Int
+    }
     
     
     
     type Mutation {
-        createUser(input: UserInput): String
+        createUser(input: UserInput):String
+        authorization(correo:String, clave:String):Auth
         deleteUser(_id: String): String
         updateUser(_id: String, input: UserInput): String
+        approveUser(_id:String):String
+        solUsuario(_id:String, nombre:String):String
+        regUsuario(_id:String, nombre:String):String
         createProject(project:ProjectInput):String
         updStateProject(nombre:String):String
         approveProject(nombre:String):String
         finishProject(nombre:String):String
         liderUpdateProject(nombre:String, updateProject:LiderProInput):String
         regAvance(nombre:String, avance:AvancesInput):proyecto
-        regUsuario(_id:String, nombre:String):String
-        solUsuario(_id:String, nombre:String):String
-        approveUser(_id:String):String
     }
 
     input AvancesInput{
