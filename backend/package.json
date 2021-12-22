@@ -1,0 +1,40 @@
+{
+  "name": "c4masterweb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src -d disk --source-maps",
+    "start": "nodemon src/index.js --exec babel-node",
+    "serve": "node disk/index.js",
+    "clean": "rimraf disk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yulysam/c4masterweb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yulysam/c4masterweb/issues"
+  },
+  "homepage": "https://github.com/yulysam/c4masterweb#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.0.1",
+    "graphql-tools": "^8.2.0",
+    "mongoose": "^6.0.13",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/preset-env": "^7.16.4"
+  }
+}
